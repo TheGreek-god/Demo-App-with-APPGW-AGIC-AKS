@@ -4,7 +4,7 @@ resource "azurerm_public_ip" "pip" {
   location            = var.location
   allocation_method   = "Static"
   sku                 = "Standard"
-  zones               = [1, 2, 3]
+  # zones               = [1, 2, 3]
 
   tags = {
     environment = "Production"
@@ -16,7 +16,7 @@ resource "azurerm_application_gateway" "appgw" {
   resource_group_name = var.resource_group_name
   location            = var.location
   enable_http2        = false
-  zones               = [1, 2, 3]
+  # zones               = [1, 2, 3]
 
   sku {
     name     = "Standard_v2"
