@@ -39,7 +39,6 @@ variable "kubernetes_version" {
   description = "Kubernetes version"
 }
 
-# ✅ KEEP ONLY ONE OF EACH - remove duplicates
 variable "virtual_network_address_prefix" {
   type        = list(string)
   description = "VNET address prefix"
