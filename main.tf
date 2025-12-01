@@ -57,7 +57,6 @@ module "appgw" {
   depends_on             = [module.vnet]
 }
 
-# Create Azure Kubernetes Service
 module "aks" {
   source                 = "./modules/AKS/"
   service_principal_name = var.service_principal_name

@@ -1,0 +1,38 @@
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-shop-basic  
+  namespace: ingress-basic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: online-shop-basic
+  template:
+    metadata:
+      labels:
+        app: online-shop-basic
+    spec:
+      containers:
+      - name: online-shop-basic
+        image: amitabhdevops/online_shop_without_footer
+        ports:
+        - containerPort: 3000
+        # env:
+        # - name: TITLE
+        #   value: "Greekgod Online Shop - Basic Version"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: online-shop-basic
+  namespace: ingress-basic  
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    app: online-shop-basic

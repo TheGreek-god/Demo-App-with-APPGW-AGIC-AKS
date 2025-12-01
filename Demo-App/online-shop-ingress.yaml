@@ -1,0 +1,57 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: online-shop-ingress
+  namespace: ingress-basic
+  annotations:
+    # CHANGE THIS LINE:
+    # appgw.ingress.kubernetes.io/backend-path-prefix: "/"  # This strips /full-shop to /
+    appgw.ingress.kubernetes.io/backend-path-prefix: ""     # This preserves the full path
+    # OR remove it entirely
+spec:
+  ingressClassName: azure-application-gateway
+  rules:
+  - http:
+      paths:
+      - path: /basic-shop
+        pathType: Prefix
+        backend:
+          service:
+            name: online-shop-basic
+            port:
+              number: 80
+      - path: /full-shop
+        pathType: Prefix
+        backend:
+          service:
+            name: online-shop-full
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: online-shop-basic
+            port:
+              number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: online-shop-static
+  namespace: ingress-basic
+  annotations:
+    # CHANGE THIS TOO:
+    appgw.ingress.kubernetes.io/backend-path-prefix: ""
+spec:
+  ingressClassName: azure-application-gateway
+  rules:
+  - http:
+      paths:
+      - path: /static
+        pathType: Prefix
+        backend:
+          service:
+            name: online-shop-basic
+            port: 
+              number: 80
